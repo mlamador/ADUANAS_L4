@@ -14,7 +14,7 @@ namespace ALMACEN.web.Controllers
         {
             var servicio1 = new ServicioModel();
             servicio1.Id = 1;
-            servicio1.Descripcion = "Almacenamiento Público";
+            servicio1.Descripcion = "Almacenamiento General";
 
             var servicio2 = new ServicioModel();
             servicio2.Id = 2;
