@@ -1,4 +1,5 @@
-﻿@model List<ALMACEN.web.Models.ServicioModel>
+﻿@model List<Almacen.BL.Servicio>
+
 @{
     ViewBag.Title = "Index";
 }
@@ -7,5 +8,7 @@
 
 @foreach (var servicio in Model)
 {
-    <p>@servicio.Descripcion</p>
+    <p>
+        @servicio.Descripcion
+    </p>
 }
