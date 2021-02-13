@@ -1,0 +1,11 @@
+﻿@model List<ALMACEN.web.Models.ServicioModel>
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Servicios</h2>
+
+@foreach (var servicio in Model)
+{
+    <p>@servicio.Descripcion</p>
+}
