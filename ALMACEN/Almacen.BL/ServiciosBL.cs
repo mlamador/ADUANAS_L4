@@ -8,8 +8,17 @@ namespace Almacen.BL
 {
     public class ServiciosBL
     {
+        Contexto _contexto = new Contexto();
+
+        public ServiciosBL()
+        {
+            _contexto = new Contexto();
+        }
+
         public List<Servicio> ObtenerServicios()
         {
+            _contexto.Servicios.ToList();
+
             var servicio1 = new Servicio();
             servicio1.Id = 1;
             servicio1.Descripcion = "Almacenamiento General";
