@@ -12,6 +12,7 @@ namespace Almacen.BL
         public Contexto(): base("ALMACENDB") 
         {
                             
+
         }
         public DbSet<Servicio> Servicios { get; set; }
     }
