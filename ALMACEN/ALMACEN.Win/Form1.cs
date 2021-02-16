@@ -16,16 +16,11 @@ namespace ALMACEN.Win
         public Form1()
         {
             InitializeComponent();
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
             var serviciosBL = new ServiciosBL();
             var listadeServicios = serviciosBL.ObtenerServicios();
-            foreach (var servicio in listadeServicios)
-            {
-                MessageBox.Show(servicio.Descripcion);
-            }
+
+            listadeServiciosBindingSource.DataSource = listadeServicios;
         }
+
     }
 }
