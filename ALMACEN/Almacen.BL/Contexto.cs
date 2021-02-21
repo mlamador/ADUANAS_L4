@@ -23,5 +23,6 @@ namespace Almacen.BL
 
 
         public DbSet<Servicio> Servicios { get; set; }
+        public DbSet<Categoria> Categorias { get; set; }
     }
 }

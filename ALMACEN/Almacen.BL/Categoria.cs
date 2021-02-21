@@ -6,18 +6,10 @@ using System.Threading.Tasks;
 
 namespace Almacen.BL
 {
-    public class Servicio
+    public class Categoria
     {
-        public Servicio()
-        {
-            Activo = true;
-        }
-
         public int Id { get; set; }
         public string Descripcion { get; set; }
-        public string Precio { get; set; }
-        public Categoria Categoria { get; set; }
-        public bool Activo { get; set; }
 
     }
 }

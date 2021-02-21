@@ -13,10 +13,12 @@ namespace ALMACEN.WebAdmin.Controllers
     public class ServiciosController : Controller
     {
         ServiciosBL _serviciosBL;
+        CategoriasBL _categoriasBL;
 
         public ServiciosController()
         {
             _serviciosBL = new ServiciosBL();
+            _categoriasBL = new CategoriasBL();
         }
 
         // GET: Servicios
@@ -30,6 +32,9 @@ namespace ALMACEN.WebAdmin.Controllers
         public ActionResult Crear()
         {
             var nuevoServicio = new Servicio();
+            var categorias = _categoriasBL.ObtenerCategorias();
+
+            ViewBag.ListaCategorias = new SelectList(categorias, "Id", "Descripcion");
 
             return View(nuevoServicio);
         }
@@ -38,7 +43,7 @@ namespace ALMACEN.WebAdmin.Controllers
 
         public ActionResult Crear(Servicio servicio)
         {
-          //  _serviciosBL.GuardarServicio(servicio);
+            _serviciosBL.GuardarServicio(servicio);
 
             return RedirectToAction("Index");
         }

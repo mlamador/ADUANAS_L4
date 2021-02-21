@@ -56,7 +56,7 @@
             // 
             // listadeServiciosBindingSource
             // 
-            this.listadeServiciosBindingSource.DataSource = typeof(Almacen.BL.Servicio);
+            this.listadeServiciosBindingSource.DataSource = typeof(Almacen.BL.Categoria);
             // 
             // listadeServiciosBindingNavigator
             // 
