@@ -7,6 +7,9 @@ using System.Web.Mvc;
 
 namespace ALMACEN.WebAdmin.Controllers
 {
+//Segunda Entrega
+//--------------------------------------------------------------------------------
+
     public class ServiciosController : Controller
     {
         ServiciosBL _serviciosBL;
@@ -24,13 +27,9 @@ namespace ALMACEN.WebAdmin.Controllers
             return View(listadeServicios);
         }
 
-
-//Segunda Entrega
-//-------------------------------------------------------------------------
-
         public ActionResult Crear()
         {
-            var nuevoServicio = new ServiciosBL();
+            var nuevoServicio = new Servicio();
 
             return View(nuevoServicio);
         }
@@ -39,7 +38,7 @@ namespace ALMACEN.WebAdmin.Controllers
 
         public ActionResult Crear(Servicio servicio)
         {
-            _serviciosBL.GuardarServicio(servicio);
+          //  _serviciosBL.GuardarServicio(servicio);
 
             return RedirectToAction("Index");
         }
@@ -79,7 +78,7 @@ namespace ALMACEN.WebAdmin.Controllers
         public ActionResult Eliminar(Servicio servicio)
         {
 
-            _serviciosBL.EliminarServicio(servicio);
+            _serviciosBL.EliminarServicio(servicio.Id);
 
             return RedirectToAction("Index");
         }
