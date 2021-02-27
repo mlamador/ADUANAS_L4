@@ -19,7 +19,7 @@ namespace Almacen.BL
 
         public List<Servicio> ObtenerServicios()
         {
-            ListadeServicios = _contexto.Servicios.ToList();
+            ListadeServicios = _contexto.Servicios.Include("Categoria").ToList();
 
             return ListadeServicios;
         }
@@ -39,8 +39,10 @@ namespace Almacen.BL
                 var servicioExistente = _contexto.Servicios.Find(servicio.Id);
                 servicioExistente.Descripcion = servicio.Descripcion;
                 servicioExistente.Precio = servicio.Precio;
+                servicioExistente.Activo = servicio.Activo;
+
             }
-            
+
             _contexto.SaveChanges();
         }
 

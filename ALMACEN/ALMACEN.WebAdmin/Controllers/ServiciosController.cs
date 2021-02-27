@@ -50,8 +50,10 @@ namespace ALMACEN.WebAdmin.Controllers
 
         public ActionResult Editar(int id)
         {
-           var servicio = _serviciosBL.ObtenerServicio(id);
-
+            var servicio = _serviciosBL.ObtenerServicio(id);
+            var categorias = _categoriasBL.ObtenerCategorias();
+            ViewBag.CategoriasId = new SelectList(categorias, "Id", "Descripcion", servicio.CategoriaId);
+            
             return View(servicio);
         }
 
