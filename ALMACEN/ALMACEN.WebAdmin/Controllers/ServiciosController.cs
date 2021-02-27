@@ -7,8 +7,10 @@ using System.Web.Mvc;
 
 namespace ALMACEN.WebAdmin.Controllers
 {
-//Segunda Entrega
-//--------------------------------------------------------------------------------
+    //Segunda Entrega
+    //--------------------------------------------------------------------------------
+
+    
 
     public class ServiciosController : Controller
     {
@@ -34,7 +36,7 @@ namespace ALMACEN.WebAdmin.Controllers
             var nuevoServicio = new Servicio();
             var categorias = _categoriasBL.ObtenerCategorias();
 
-            ViewBag.ListaCategorias = new SelectList(categorias, "Id", "Descripcion");
+            ViewBag.CategoriaId = new SelectList(categorias, "Id", "Descripcion");
 
             return View(nuevoServicio);
         }
@@ -43,15 +45,34 @@ namespace ALMACEN.WebAdmin.Controllers
 
         public ActionResult Crear(Servicio servicio)
         {
-            _serviciosBL.GuardarServicio(servicio);
+            if (ModelState.IsValid)
+            {
+                if (servicio.CategoriaId == 0)
+                {
+                    ModelState.AddModelError("CategoriaId", "Seleccione una categoria");
+                    return View(servicio);
+                }
 
-            return RedirectToAction("Index");
+                _serviciosBL.GuardarServicio(servicio);
+
+                return RedirectToAction("Index");
+            }
+
+            var categorias = _categoriasBL.ObtenerCategorias();
+
+            ViewBag.CategoriaId =
+                new SelectList(categorias, "Id", "Descripcion");
+
+            //_serviciosBL.GuardarServicio(servicio);
+
+            return View(servicio);
         }
 
         public ActionResult Editar(int id)
         {
             var servicio = _serviciosBL.ObtenerServicio(id);
             var categorias = _categoriasBL.ObtenerCategorias();
+
             ViewBag.CategoriasId = new SelectList(categorias, "Id", "Descripcion", servicio.CategoriaId);
             
             return View(servicio);
@@ -61,9 +82,25 @@ namespace ALMACEN.WebAdmin.Controllers
 
         public ActionResult Editar(Servicio servicio)
         {
-            _serviciosBL.GuardarServicio(servicio);
+            if (ModelState.IsValid)
+            {
 
-            return RedirectToAction("Index");
+                if (servicio.CategoriaId == 0)
+                {
+                    ModelState.AddModelError("CategoriaId", "Seleccione una categoria");
+                    return View(servicio);
+                }
+
+                _serviciosBL.GuardarServicio(servicio);
+
+                return RedirectToAction("Index");
+            }
+
+            var categorias = _categoriasBL.ObtenerCategorias();
+
+            ViewBag.CategoriaId = new SelectList(categorias, "Id", "Descripcion");
+
+            return View(servicio);
         }
 
         public ActionResult Detalle(int id)
