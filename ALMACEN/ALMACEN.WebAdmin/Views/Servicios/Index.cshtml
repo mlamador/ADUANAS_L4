@@ -24,9 +24,13 @@
             @Html.DisplayNameFor(model => model.Precio)
         </th>
 
-        <td>
+        <th>
+            @Html.DisplayNameFor(model => model.UrlImagen)
+        </th>
+
+        <th>
             @Html.DisplayNameFor(model => model.Activo)
-        </td>
+        </th>
     </tr>
 
 @foreach (var item in Model) {
@@ -41,6 +45,10 @@
 
         <td>
             @Html.DisplayFor(modelItem => item.Precio)
+        </td>
+
+        <td>
+            <img src="@item.UrlImagen" alt="@item.Descripcion" style="max-width:64px; height:auto;" />
         </td>
 
         <td>

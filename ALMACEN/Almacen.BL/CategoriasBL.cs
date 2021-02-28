@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 namespace Almacen.BL
 {
 
-
     public class CategoriasBL
     {
 
@@ -37,7 +36,7 @@ namespace Almacen.BL
             }
             else
             {
-                var categoriaExistente = _contexto.Servicios.Find(categoria.Id);
+                var categoriaExistente = _contexto.Categorias.Find(categoria.Id);
                 categoriaExistente.Descripcion = categoria.Descripcion;
            
             }

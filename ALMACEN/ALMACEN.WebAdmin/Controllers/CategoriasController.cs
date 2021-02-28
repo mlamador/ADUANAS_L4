@@ -34,14 +34,18 @@ namespace ALMACEN.web.Controllers
             return View(nuevaCategoria);
         }
 
+
+        //Entrega 4 se modifico Crear editar
+
         [HttpPost]
         public ActionResult Crear(Categoria categoria)
         {
             if (ModelState.IsValid)
             {
+
                 if (categoria.Descripcion != categoria.Descripcion.Trim())
                 {
-                    ModelState.AddModelError("Descripcion", "");
+                    ModelState.AddModelError("Descripcion", "No debe de tener espacios la inicio o al final");
                     return View(categoria);
                 }
 
@@ -67,7 +71,7 @@ namespace ALMACEN.web.Controllers
             {
                 if (categoria.Descripcion != categoria.Descripcion.Trim())
                 {
-                    ModelState.AddModelError("Descripcion", "");
+                    ModelState.AddModelError("Descripcion", "La descripción no debe contener espacios al inicio o al final");
                     return View(categoria);
                 }
 
@@ -94,7 +98,6 @@ namespace ALMACEN.web.Controllers
         }
 
         [HttpPost]
-
         public ActionResult Eliminar(Categoria categoria)
         {
             _categoriasBL.EliminarCategoria(categoria.Id);

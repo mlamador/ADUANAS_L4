@@ -24,23 +24,22 @@ namespace Almacen.BL
             return ListadeServicios;
         }
 
-//Segunda Entrega
-//------------------------------------------------------------------------------
 
         public void GuardarServicio(Servicio servicio)
         {
 
-            if(servicio.Id == 0)
+            if (servicio.Id == 0)
             {
                 _contexto.Servicios.Add(servicio);
             }
             else
             {
-                var servicioExistente = _contexto.Servicios.Find(servicio.Id);
-                servicioExistente.Descripcion = servicio.Descripcion;
-                servicioExistente.Precio = servicio.Precio;
-                servicioExistente.Activo = servicio.Activo;
+                var productoExistente = _contexto.Servicios.Find(servicio.Id);
 
+                productoExistente.Descripcion = servicio.Descripcion;
+                productoExistente.CategoriaId = servicio.CategoriaId;
+                productoExistente.Precio = servicio.Precio;
+                productoExistente.UrlImagen = servicio.UrlImagen;
             }
 
             _contexto.SaveChanges();
@@ -48,7 +47,7 @@ namespace Almacen.BL
 
         public Servicio ObtenerServicio(int id)
         {
-            var servicio = _contexto.Servicios.Find(id);
+            var servicio = _contexto.Servicios.Include("Categoria").FirstOrDefault(p => p.Id == id);
 
             return servicio;
         }

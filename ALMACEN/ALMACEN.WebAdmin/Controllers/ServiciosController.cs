@@ -7,11 +7,7 @@ using System.Web.Mvc;
 
 namespace ALMACEN.WebAdmin.Controllers
 {
-    //Segunda Entrega
-    //--------------------------------------------------------------------------------
-
-    
-
+     
     public class ServiciosController : Controller
     {
         ServiciosBL _serviciosBL;
@@ -41,9 +37,11 @@ namespace ALMACEN.WebAdmin.Controllers
             return View(nuevoServicio);
         }
 
+        // Entrega 4 se modifico Crear y editar
+
         [HttpPost]
 
-        public ActionResult Crear(Servicio servicio)
+        public ActionResult Crear(Servicio servicio, HttpPostedFileBase imagen)
         {
             if (ModelState.IsValid)
             {
@@ -53,42 +51,9 @@ namespace ALMACEN.WebAdmin.Controllers
                     return View(servicio);
                 }
 
-                _serviciosBL.GuardarServicio(servicio);
-
-                return RedirectToAction("Index");
-            }
-
-            var categorias = _categoriasBL.ObtenerCategorias();
-
-            ViewBag.CategoriaId =
-                new SelectList(categorias, "Id", "Descripcion");
-
-            //_serviciosBL.GuardarServicio(servicio);
-
-            return View(servicio);
-        }
-
-        public ActionResult Editar(int id)
-        {
-            var servicio = _serviciosBL.ObtenerServicio(id);
-            var categorias = _categoriasBL.ObtenerCategorias();
-
-            ViewBag.CategoriasId = new SelectList(categorias, "Id", "Descripcion", servicio.CategoriaId);
-            
-            return View(servicio);
-        }
-
-        [HttpPost]
-
-        public ActionResult Editar(Servicio servicio)
-        {
-            if (ModelState.IsValid)
-            {
-
-                if (servicio.CategoriaId == 0)
+                if (imagen != null)
                 {
-                    ModelState.AddModelError("CategoriaId", "Seleccione una categoria");
-                    return View(servicio);
+                    servicio.UrlImagen = GuardarImagen(imagen);
                 }
 
                 _serviciosBL.GuardarServicio(servicio);
@@ -103,9 +68,50 @@ namespace ALMACEN.WebAdmin.Controllers
             return View(servicio);
         }
 
+        public ActionResult Editar(int id)
+        {
+            var producto = _serviciosBL.ObtenerServicio(id);
+            var categorias = _categoriasBL.ObtenerCategorias();
+
+            ViewBag.CategoriaId =
+                new SelectList(categorias, "Id", "Descripcion", producto.CategoriaId);
+
+            return View(producto);
+        }
+
+        [HttpPost]
+        public ActionResult Editar(Servicio servicio, HttpPostedFileBase imagen)
+        {
+            if (ModelState.IsValid)
+            {
+                if (servicio.CategoriaId == 0)
+                {
+                    ModelState.AddModelError("CategoriaId", "Seleccione una categoria");
+                    return View(servicio);
+                }
+
+                if (imagen != null)
+                {
+                    servicio.UrlImagen = GuardarImagen(imagen);
+                }
+
+                _serviciosBL.GuardarServicio(servicio);
+
+                return RedirectToAction("Index");
+            }
+
+            var categorias = _categoriasBL.ObtenerCategorias();
+
+            ViewBag.CategoriaId =
+                new SelectList(categorias, "Id", "Descripcion");
+
+            return View(servicio);
+        }
+
         public ActionResult Detalle(int id)
         {
             var servicio = _serviciosBL.ObtenerServicio(id);
+            var categorias = _categoriasBL.ObtenerCategorias();
 
             return View(servicio);
         }
@@ -121,10 +127,17 @@ namespace ALMACEN.WebAdmin.Controllers
 
         public ActionResult Eliminar(Servicio servicio)
         {
-
             _serviciosBL.EliminarServicio(servicio.Id);
 
             return RedirectToAction("Index");
+        }
+
+        private string GuardarImagen(HttpPostedFileBase imagen)
+        {
+            string path = Server.MapPath("~/Imagenes/" + imagen.FileName);
+            imagen.SaveAs(path);
+
+            return "/Imagenes/" + imagen.FileName;
         }
 
     }
